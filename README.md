@@ -1,37 +1,119 @@
-## Welcome to GitHub Pages
+[![Build Status](https://travis-ci.org/firebase/php-jwt.png?branch=master)](https://travis-ci.org/firebase/php-jwt)
+[![Latest Stable Version](https://poser.pugx.org/firebase/php-jwt/v/stable)](https://packagist.org/packages/firebase/php-jwt)
+[![Total Downloads](https://poser.pugx.org/firebase/php-jwt/downloads)](https://packagist.org/packages/firebase/php-jwt)
+[![License](https://poser.pugx.org/firebase/php-jwt/license)](https://packagist.org/packages/firebase/php-jwt)
 
-You can use the [editor on GitHub](https://github.com/zagarino/macapp/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+PHP-JWT
+=======
+A simple library to encode and decode JSON Web Tokens (JWT) in PHP, conforming to [RFC 7519](https://tools.ietf.org/html/rfc7519).
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+Installation
+------------
 
-### Markdown
+Use composer to manage your dependencies and download PHP-JWT:
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
+```bash
+composer require firebase/php-jwt
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+Example
+-------
+```php
+<?php
+use \Firebase\JWT\JWT;
 
-### Jekyll Themes
+$key = "example_key";
+$token = array(
+    "iss" => "http://example.org",
+    "aud" => "http://example.com",
+    "iat" => 1356999524,
+    "nbf" => 1357000000
+);
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/zagarino/macapp/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+/**
+ * IMPORTANT:
+ * You must specify supported algorithms for your application. See
+ * https://tools.ietf.org/html/draft-ietf-jose-json-web-algorithms-40
+ * for a list of spec-compliant algorithms.
+ */
+$jwt = JWT::encode($token, $key);
+$decoded = JWT::decode($jwt, $key, array('HS256'));
 
-### Support or Contact
+print_r($decoded);
 
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+/*
+ NOTE: This will now be an object instead of an associative array. To get
+ an associative array, you will need to cast it as such:
+*/
+
+$decoded_array = (array) $decoded;
+
+/**
+ * You can add a leeway to account for when there is a clock skew times between
+ * the signing and verifying servers. It is recommended that this leeway should
+ * not be bigger than a few minutes.
+ *
+ * Source: http://self-issued.info/docs/draft-ietf-oauth-json-web-token.html#nbfDef
+ */
+JWT::$leeway = 60; // $leeway in seconds
+$decoded = JWT::decode($jwt, $key, array('HS256'));
+
+?>
+```
+
+Changelog
+---------
+
+#### 4.0.0 / 2016-07-17
+- Add support for late static binding. See [#88](https://github.com/firebase/php-jwt/pull/88) for details. Thanks to [@chappy84](https://github.com/chappy84)!
+- Use static `$timestamp` instead of `time()` to improve unit testing. See [#93](https://github.com/firebase/php-jwt/pull/93) for details. Thanks to [@josephmcdermott](https://github.com/josephmcdermott)!
+- Fixes to exceptions classes. See [#81](https://github.com/firebase/php-jwt/pull/81) for details. Thanks to [@Maks3w](https://github.com/Maks3w)!
+- Fixes to PHPDoc. See [#76](https://github.com/firebase/php-jwt/pull/76) for details. Thanks to [@akeeman](https://github.com/akeeman)!
+
+#### 3.0.0 / 2015-07-22
+- Minimum PHP version updated from `5.2.0` to `5.3.0`.
+- Add `\Firebase\JWT` namespace. See
+[#59](https://github.com/firebase/php-jwt/pull/59) for details. Thanks to
+[@Dashron](https://github.com/Dashron)!
+- Require a non-empty key to decode and verify a JWT. See
+[#60](https://github.com/firebase/php-jwt/pull/60) for details. Thanks to
+[@sjones608](https://github.com/sjones608)!
+- Cleaner documentation blocks in the code. See
+[#62](https://github.com/firebase/php-jwt/pull/62) for details. Thanks to
+[@johanderuijter](https://github.com/johanderuijter)!
+
+#### 2.2.0 / 2015-06-22
+- Add support for adding custom, optional JWT headers to `JWT::encode()`. See
+[#53](https://github.com/firebase/php-jwt/pull/53/files) for details. Thanks to
+[@mcocaro](https://github.com/mcocaro)!
+
+#### 2.1.0 / 2015-05-20
+- Add support for adding a leeway to `JWT:decode()` that accounts for clock skew
+between signing and verifying entities. Thanks to [@lcabral](https://github.com/lcabral)!
+- Add support for passing an object implementing the `ArrayAccess` interface for
+`$keys` argument in `JWT::decode()`. Thanks to [@aztech-dev](https://github.com/aztech-dev)!
+
+#### 2.0.0 / 2015-04-01
+- **Note**: It is strongly recommended that you update to > v2.0.0 to address
+  known security vulnerabilities in prior versions when both symmetric and
+  asymmetric keys are used together.
+- Update signature for `JWT::decode(...)` to require an array of supported
+  algorithms to use when verifying token signatures.
+
+
+Tests
+-----
+Run the tests using phpunit:
+
+```bash
+$ pear install PHPUnit
+$ phpunit --configuration phpunit.xml.dist
+PHPUnit 3.7.10 by Sebastian Bergmann.
+.....
+Time: 0 seconds, Memory: 2.50Mb
+OK (5 tests, 5 assertions)
+```
+
+License
+-------
+[3-Clause BSD](http://opensource.org/licenses/BSD-3-Clause).
