@@ -1,0 +1,35 @@
+#!/bin/bash
+
+function update()
+{
+	local destiny="$1"
+	echo update $destiny 
+	
+	#rsync -ar ../styles/css $destiny:/var/www/styles/;
+	rsync -ar ./ mac:~/production/src/ --exclude 'app/tmp' --exclude 'app/Config/database.php' --exclude 'app/webroot/index.php' --exclude 'app/Config/core.php'
+	#rsync -ar app/ ubuntu@mac:/home/ubuntu/mac/src/app/ --exclude 'tmp' --exclude 'webroot/index.php' --exclude 'Config/core.php'
+}
+
+#function updateFull()
+#{
+	#local destiny="$1"
+	#local path="/home/gearheb1/public_html/ma/"
+	#echo updateFull $destiny 
+	
+	#rsync -ar --exclude=./app/Config/ --exclude=./app/webroot/index.php ./app $destiny:$path;
+	#rsync -ar ./Vendor $destiny:$path;
+	#rsync ./composer.json $destiny:$path;
+	#rsync ./composer.lock $destiny:$path;
+	
+	##echo "Server $destiny has been <strong>FULLY</strong> updated." | mail -s "update@$destiny: Automatic respond" anton@justifymybuy.com,rob@justifymybuy.com
+#}
+
+#if [ "$1" == "full" ];
+#then
+      #updateFull gearhead
+#else
+        ##development
+        #update gearhead
+#fi
+
+update mac

@@ -1,0 +1,25 @@
+{
+	"name": "mac",
+	"require": {
+		"cakephp/cakephp": "2.8",
+		"league/oauth2-client": "*",
+		"slywalker/boost_cake": "*",
+		"stripe/stripe-php": "4.*",
+		"firebase/php-jwt": "*",
+		"facebook/graph-sdk" : "~5.0",
+		"google/recaptcha": "~1.1"
+	},
+	"require-dev" : {
+		"cakephp/debug_kit": "2.2.*",
+		"twbs/bootstrap": "3.2.*@dev"
+	},
+	"config": {
+		"vendor-dir": "Vendor/"
+	},
+	"extra": {
+		"installer-paths": {
+			"app/Plugin/DebugKit": ["cakephp/debug_kit"],
+			"app/Plugin/BoostCake": ["slywalker/boost_cake"]
+		}
+	}
+}

@@ -1,0 +1,24 @@
+{
+  "name": "mac",
+  "version": "0.1.0",
+  "description": "A good task runner composition for the mark allen coaching project.",
+  "homepage": "http://gearhead-consulting.com",
+  "author": {
+    "name": "Uwe Sölen Flaig",
+    "email": "uflaig@gearhead-consulting.com"
+  },
+  "engines": {
+    "node": ">= 0.9.0"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "bootstrap-sass": "*",
+    "grunt": "*",
+    "grunt-cli": "*",
+    "grunt-contrib-concat": "*",
+    "grunt-contrib-nodeunit": "*",
+    "grunt-contrib-watch": "*",
+    "grunt-sass": "*",
+    "grunt-webfont": "*"
+  }
+}
