@@ -12,8 +12,14 @@
          bootstrap="tests/bootstrap.php"
 >
     <testsuites>
-        <testsuite name="PHP JSON Web Token Test Suite">
-            <directory>./tests</directory>
+        <testsuite name="Installers Test Suite">
+            <directory>tests/Composer/Installers</directory>
         </testsuite>
     </testsuites>
+
+    <filter>
+        <whitelist>
+            <directory>src/Composer/Installers</directory>
+        </whitelist>
+    </filter>
 </phpunit>

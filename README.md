@@ -1,119 +1,220 @@
-[![Build Status](https://travis-ci.org/firebase/php-jwt.png?branch=master)](https://travis-ci.org/firebase/php-jwt)
-[![Latest Stable Version](https://poser.pugx.org/firebase/php-jwt/v/stable)](https://packagist.org/packages/firebase/php-jwt)
-[![Total Downloads](https://poser.pugx.org/firebase/php-jwt/downloads)](https://packagist.org/packages/firebase/php-jwt)
-[![License](https://poser.pugx.org/firebase/php-jwt/license)](https://packagist.org/packages/firebase/php-jwt)
+# A Multi-Framework [Composer](http://getcomposer.org) Library Installer
 
-PHP-JWT
-=======
-A simple library to encode and decode JSON Web Tokens (JWT) in PHP, conforming to [RFC 7519](https://tools.ietf.org/html/rfc7519).
+[![Build Status](http://img.shields.io/travis/composer/installers.svg)](http://travis-ci.org/composer/installers)
 
-Installation
-------------
+This is for PHP package authors to require in their `composer.json`. It will
+install their package to the correct location based on the specified package
+type.
 
-Use composer to manage your dependencies and download PHP-JWT:
+The goal of `installers` is to be a simple package type to install path map.
+Users can also customize the install path per package and package authors can
+modify the package name upon installing.
 
-```bash
-composer require firebase/php-jwt
+`installers` isn't intended on replacing all custom installers. If your
+package requires special installation handling then by all means, create a
+custom installer to handle it.
+
+**Natively Supported Frameworks**:
+
+The following frameworks natively work with Composer and will be
+installed to the default `vendor` directory. `composer/installers`
+is not needed to install packages with these frameworks:
+
+* Aura
+* Symfony2
+* Yii
+* Yii2
+
+**Current Supported Package Types**:
+
+> Stable types are marked as **bold**, this means that installation paths
+> for those type will not be changed. Any adjustment for those types would
+> require creation of brand new type that will cover required changes.
+
+| Framework    | Types
+| ---------    | -----
+| Aimeos       | `aimeos-extension`
+| Asgard       | `asgard-module`<br>`asgard-theme`
+| Attogram     | `attogram-module`
+| AGL          | `agl-module`
+| Bonefish     | `bonefish-package`
+| AnnotateCms  | `annotatecms-module`<br>`annotatecms-component`<br>`annotatecms-service`
+| Bitrix       | `bitrix-module` (deprecated) <br>`bitrix-component` (deprecated) <br>`bitrix-theme` (deprecated) <br><br> `bitrix-d7-module` <br> `bitrix-d7-component` <br> `bitrix-d7-template`
+| CakePHP 2+   | **`cakephp-plugin`**
+| Chef         | `chef-cookbook`<br>`chef-role`
+| CCFramework  | `ccframework-ship`<br>`ccframework-theme`
+| Cockpit      | `cockpit-module`
+| CodeIgniter  | `codeigniter-library`<br>`codeigniter-third-party`<br>`codeigniter-module`
+| concrete5    | `concrete5-block`<br>`concrete5-package`<br>`concrete5-theme`<br>`concrete5-update`
+| Craft        | `craft-plugin`
+| Croogo       | `croogo-plugin`<br>`croogo-theme`
+| Decibel      | `decibel-app`
+| DokuWiki     | `dokuwiki-plugin`<br>`dokuwiki-template`
+| Dolibarr     | `dolibarr-module`
+| Drupal       | <b>`drupal-core`<br>`drupal-module`<br>`drupal-theme`</b><br>`drupal-library`<br>`drupal-profile`<br>`drupal-drush`
+| Elgg         | `elgg-plugin`
+| ExpressionEngine 3         | `ee3-addon`<br>`ee3-theme`
+| FuelPHP v1.x | `fuel-module`<br>`fuel-package`<br/>`fuel-theme`
+| FuelPHP v2.x | `fuelphp-component`
+| Grav         | `grav-plugin`<br>`grav-theme`
+| Hurad        | `hurad-plugin`<br>`hurad-theme`
+| ImageCMS     | `imagecms-template`<br>`imagecms-module`<br>`imagecms-library`
+| Joomla       | `joomla-component`<br>`joomla-module`<br>`joomla-template`<br>`joomla-plugin`<br>`joomla-library`
+| Kirby        | **`kirby-plugin`**<br>`kirby-field`<br>`kirby-tag`
+| KodiCMS      | `kodicms-plugin`<br>`kodicms-media`
+| Kohana       | **`kohana-module`**
+| Laravel      | `laravel-library`
+| Lithium      | **`lithium-library`<br>`lithium-source`**
+| Magento      | `magento-library`<br>`magento-skin`<br>`magento-theme`
+| Mako         | `mako-package`
+| Mautic       | `mautic-plugin`<br>`mautic-theme`
+| MODX Evo     | `modxevo-snippet`<br>`modxevo-plugin`<br>`modxevo-module`<br>`modxevo-template`<br>`modxevo-lib`
+| MediaWiki    | `mediawiki-extension`
+| October      | **`october-module`<br>`october-plugin`<br>`october-theme`**
+| OXID         | `oxid-module`<br>`oxid-theme`<br>`oxid-out`
+| MODULEWork   | `modulework-module`
+| Moodle       | `moodle-*` (Please [check source](https://raw.githubusercontent.com/composer/installers/master/src/Composer/Installers/MoodleInstaller.php) for all supported types)
+| Piwik        | `piwik-plugin`
+| phpBB        | `phpbb-extension`<br>`phpbb-style`<br>`phpbb-language`
+| Pimcore      | `pimcore-plugin`
+| Plentymarkets      | `plentymarkets-plugin`
+| PPI          | **`ppi-module`**
+| Puppet       | `puppet-module`
+| RadPHP       | `radphp-bundle`
+| REDAXO       | `redaxo-addon`
+| ReIndex      | **`reindex-plugin`** <br> **`reindex-theme`**
+| Roundcube    | `roundcube-plugin`
+| shopware     | `shopware-backend-plugin`<br/>`shopware-core-plugin`<br/>`shopware-frontend-plugin`<br/>`shopware-theme`<br/>`shopware-plugin`<br/>`shopware-frontend-theme`
+| SilverStripe | `silverstripe-module`<br>`silverstripe-theme`
+| SMF          | `smf-module`<br>`smf-theme`
+| symfony1     | **`symfony1-plugin`**
+| Tusk         | `tusk-task`<br>`tusk-command`<br>`tusk-asset`
+| TYPO3 Flow   | `typo3-flow-package`<br>`typo3-flow-framework`<br>`typo3-flow-plugin`<br>`typo3-flow-site`<br>`typo3-flow-boilerplate`<br>`typo3-flow-build`
+| TYPO3 CMS    | `typo3-cms-extension` (Deprecated in this package, use the [TYPO3 CMS Installers](https://packagist.org/packages/typo3/cms-composer-installers) instead)
+| Vanilla      | `vanilla-plugin`<br>`vanilla-theme`
+| Wolf CMS     | `wolfcms-plugin`
+| WordPress    | <b>`wordpress-plugin`<br>`wordpress-theme`</b><br>`wordpress-muplugin`
+| YAWIK        | `yawik-module`
+| Zend         | `zend-library`<br>`zend-extra`<br>`zend-module`
+| Zikula       | `zikula-module`<br>`zikula-theme`
+| Prestashop   | `prestashop-module`<br>`prestashop-theme`
+| Phifty       | `phifty-bundle`<br>`phifty-framework`<br>`phifty-library`
+
+## Example `composer.json` File
+
+This is an example for a CakePHP plugin. The only important parts to set in your
+composer.json file are `"type": "cakephp-plugin"` which describes what your
+package is and `"require": { "composer/installers": "~1.0" }` which tells composer
+to load the custom installers.
+
+```json
+{
+    "name": "you/ftp",
+    "type": "cakephp-plugin",
+    "require": {
+        "composer/installers": "~1.0"
+    }
+}
 ```
 
-Example
--------
-```php
-<?php
-use \Firebase\JWT\JWT;
+This would install your package to the `Plugin/Ftp/` folder of a CakePHP app
+when a user runs `php composer.phar install`.
 
-$key = "example_key";
-$token = array(
-    "iss" => "http://example.org",
-    "aud" => "http://example.com",
-    "iat" => 1356999524,
-    "nbf" => 1357000000
-);
+So submit your packages to [packagist.org](http://packagist.org)!
 
-/**
- * IMPORTANT:
- * You must specify supported algorithms for your application. See
- * https://tools.ietf.org/html/draft-ietf-jose-json-web-algorithms-40
- * for a list of spec-compliant algorithms.
- */
-$jwt = JWT::encode($token, $key);
-$decoded = JWT::decode($jwt, $key, array('HS256'));
+## Custom Install Paths
 
-print_r($decoded);
+If you are consuming a package that uses the `composer/installers` you can
+override the install path with the following extra in your `composer.json`:
 
-/*
- NOTE: This will now be an object instead of an associative array. To get
- an associative array, you will need to cast it as such:
-*/
-
-$decoded_array = (array) $decoded;
-
-/**
- * You can add a leeway to account for when there is a clock skew times between
- * the signing and verifying servers. It is recommended that this leeway should
- * not be bigger than a few minutes.
- *
- * Source: http://self-issued.info/docs/draft-ietf-oauth-json-web-token.html#nbfDef
- */
-JWT::$leeway = 60; // $leeway in seconds
-$decoded = JWT::decode($jwt, $key, array('HS256'));
-
-?>
+```json
+{
+    "extra": {
+        "installer-paths": {
+            "your/custom/path/{$name}/": ["shama/ftp", "vendor/package"]
+        }
+    }
+}
 ```
 
-Changelog
----------
+A package type can have a custom installation path with a `type:` prefix.
 
-#### 4.0.0 / 2016-07-17
-- Add support for late static binding. See [#88](https://github.com/firebase/php-jwt/pull/88) for details. Thanks to [@chappy84](https://github.com/chappy84)!
-- Use static `$timestamp` instead of `time()` to improve unit testing. See [#93](https://github.com/firebase/php-jwt/pull/93) for details. Thanks to [@josephmcdermott](https://github.com/josephmcdermott)!
-- Fixes to exceptions classes. See [#81](https://github.com/firebase/php-jwt/pull/81) for details. Thanks to [@Maks3w](https://github.com/Maks3w)!
-- Fixes to PHPDoc. See [#76](https://github.com/firebase/php-jwt/pull/76) for details. Thanks to [@akeeman](https://github.com/akeeman)!
-
-#### 3.0.0 / 2015-07-22
-- Minimum PHP version updated from `5.2.0` to `5.3.0`.
-- Add `\Firebase\JWT` namespace. See
-[#59](https://github.com/firebase/php-jwt/pull/59) for details. Thanks to
-[@Dashron](https://github.com/Dashron)!
-- Require a non-empty key to decode and verify a JWT. See
-[#60](https://github.com/firebase/php-jwt/pull/60) for details. Thanks to
-[@sjones608](https://github.com/sjones608)!
-- Cleaner documentation blocks in the code. See
-[#62](https://github.com/firebase/php-jwt/pull/62) for details. Thanks to
-[@johanderuijter](https://github.com/johanderuijter)!
-
-#### 2.2.0 / 2015-06-22
-- Add support for adding custom, optional JWT headers to `JWT::encode()`. See
-[#53](https://github.com/firebase/php-jwt/pull/53/files) for details. Thanks to
-[@mcocaro](https://github.com/mcocaro)!
-
-#### 2.1.0 / 2015-05-20
-- Add support for adding a leeway to `JWT:decode()` that accounts for clock skew
-between signing and verifying entities. Thanks to [@lcabral](https://github.com/lcabral)!
-- Add support for passing an object implementing the `ArrayAccess` interface for
-`$keys` argument in `JWT::decode()`. Thanks to [@aztech-dev](https://github.com/aztech-dev)!
-
-#### 2.0.0 / 2015-04-01
-- **Note**: It is strongly recommended that you update to > v2.0.0 to address
-  known security vulnerabilities in prior versions when both symmetric and
-  asymmetric keys are used together.
-- Update signature for `JWT::decode(...)` to require an array of supported
-  algorithms to use when verifying token signatures.
-
-
-Tests
------
-Run the tests using phpunit:
-
-```bash
-$ pear install PHPUnit
-$ phpunit --configuration phpunit.xml.dist
-PHPUnit 3.7.10 by Sebastian Bergmann.
-.....
-Time: 0 seconds, Memory: 2.50Mb
-OK (5 tests, 5 assertions)
+``` json
+{
+    "extra": {
+        "installer-paths": {
+            "your/custom/path/{$name}/": ["type:wordpress-plugin"]
+        }
+    }
+}
 ```
 
-License
--------
-[3-Clause BSD](http://opensource.org/licenses/BSD-3-Clause).
+You can also have the same vendor packages with a custom installation path by
+using the `vendor:` prefix.
+
+``` json
+{
+    "extra": {
+        "installer-paths": {
+            "your/custom/path/{$name}/": ["vendor:my_organization"]
+        }
+    }
+}
+```
+
+These would use your custom path for each of the listed packages. The available
+variables to use in your paths are: `{$name}`, `{$vendor}`, `{$type}`.
+
+## Custom Install Names
+
+If you're a package author and need your package to be named differently when
+installed consider using the `installer-name` extra.
+
+For example you have a package named `shama/cakephp-ftp` with the type
+`cakephp-plugin`. Installing with `composer/installers` would install to the
+path `Plugin/CakephpFtp`. Due to the strict naming conventions, you as a
+package author actually need the package to be named and installed to
+`Plugin/Ftp`. Using the following config within your **package** `composer.json`
+will allow this:
+
+```json
+{
+    "name": "shama/cakephp-ftp",
+    "type": "cakephp-plugin",
+    "extra": {
+        "installer-name": "Ftp"
+    }
+}
+```
+
+Please note the name entered into `installer-name` will be the final and will
+not be inflected.
+
+## Contribute!
+
+* [Fork and clone](https://help.github.com/articles/fork-a-repo).
+* Run the command `php composer.phar install` to install the dependencies.
+  This will also install the dev dependencies. See [Composer](https://getcomposer.org/doc/03-cli.md#install).
+* Use the command `phpunit` to run the tests. See [PHPUnit](http://phpunit.de).
+* Create a branch, commit, push and send us a
+  [pull request](https://help.github.com/articles/using-pull-requests).
+
+To ensure a consistent code base, you should make sure the code follows the
+[Coding Standards](http://symfony.com/doc/2.0/contributing/code/standards.html)
+which we borrowed from Symfony.
+
+If you would like to help, please take a look at the list of
+[issues](https://github.com/composer/installers/issues).
+
+### Should we allow dynamic package types or paths? No.
+What are they? The ability for a package author to determine where a package
+will be installed either through setting the path directly in their
+`composer.json` or through a dynamic package type: `"type":
+"framework-install-here"`.
+
+It has been proposed many times. Even implemented once early on and then
+removed. `installers` won't do this because it would allow a single package
+author to wipe out entire folders without the user's consent. That user would
+then come here to yell at us.
+
+Anyone still wanting this capability should consider requiring https://github.com/oomphinc/composer-installers-extender.
